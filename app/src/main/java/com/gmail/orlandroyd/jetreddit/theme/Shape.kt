@@ -1,4 +1,4 @@
-package com.gmail.orlandroyd.jetreddit.ui.theme
+package com.gmail.orlandroyd.jetreddit.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

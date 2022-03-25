@@ -1,4 +1,4 @@
-package com.gmail.orlandroyd.jetreddit.ui.theme
+package com.gmail.orlandroyd.jetreddit.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
