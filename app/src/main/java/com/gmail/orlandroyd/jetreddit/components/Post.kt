@@ -43,7 +43,20 @@ fun ImagePost(post: PostModel) {
 
 @Composable
 fun Post(post: PostModel, content: @Composable () -> Unit = {}) {
-    //TODO add your code here
+    Card(shape = MaterialTheme.shapes.large) {
+        Column(
+            modifier = Modifier.padding(
+                top = 8.dp,
+                bottom = 8.dp
+            )
+        ) {
+            Header(post)
+            Spacer(modifier = Modifier.height(4.dp))
+            content.invoke()
+            Spacer(modifier = Modifier.height(8.dp))
+            PostActions(post)
+        }
+    }
 }
 
 @Composable
