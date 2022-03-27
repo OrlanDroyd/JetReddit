@@ -5,9 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,19 +55,21 @@ private fun AppDrawerHeader() {
     ) {
         Image(
             imageVector = Icons.Filled.AccountCircle,
-            colorFilter = ColorFilter.tint(Color.Gray),
+            colorFilter = ColorFilter.tint(Color.LightGray),
             modifier = Modifier
                 .padding(16.dp)
                 .size(50.dp),
-            alignment = Alignment.Center,
             contentScale = ContentScale.Fit,
-            contentDescription = stringResource(R.string.account)
+            alignment = Alignment.Center,
+            contentDescription = stringResource(id = R.string.account)
         )
 
         Text(
             text = stringResource(R.string.default_username),
             color = MaterialTheme.colors.primaryVariant
         )
+
+        ProfileInfo()
 
         Divider(
             color = MaterialTheme.colors.onSurface.copy(alpha = .2f),
@@ -187,7 +187,22 @@ private fun ProfileInfoItem(
  */
 @Composable
 private fun AppDrawerBody(closeDrawerAction: () -> Unit) {
-    //TODO add your code here
+    Column {
+        ScreenNavigationButton(
+            icon = Icons.Filled.AccountBox,
+            label = stringResource(R.string.my_profile),
+            onClickAction = {
+                closeDrawerAction
+            }
+        )
+        ScreenNavigationButton(
+            icon = Icons.Filled.Home,
+            label = stringResource(R.string.home),
+            onClickAction = {
+                closeDrawerAction
+            }
+        )
+    }
 }
 
 /**
