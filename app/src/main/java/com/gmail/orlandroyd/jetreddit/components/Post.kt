@@ -4,12 +4,14 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -46,7 +48,31 @@ fun Post(post: PostModel, content: @Composable () -> Unit = {}) {
 
 @Composable
 fun Header(post: PostModel) {
-    //TODO add your code here
+    Row(modifier = Modifier.padding(start = 16.dp)) {
+        Image(
+            ImageBitmap.imageResource(id = R.drawable.subreddit_placeholder),
+            contentDescription = stringResource(id = R.string.subreddits),
+            Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(R.string.subreddit_header, post.subreddit),
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colors.primaryVariant
+            )
+            Text(
+                text = stringResource(R.string.post_header, post.username, post.postedTime),
+                color = Color.Gray
+            )
+        }
+
+        MoreActionsMenu()
+    }
+
+    Title(text = post.title)
 }
 
 @Composable
@@ -167,12 +193,37 @@ fun VotingAction(
     onUpVoteAction: () -> Unit,
     onDownVoteAction: () -> Unit
 ) {
-    //TODO add your code here
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        ArrowButton(
+            onUpVoteAction,
+            R.drawable.ic_baseline_arrow_upward_24
+        )
+        Text(
+            text = text,
+            color = Color.Gray,
+            fontWeight = FontWeight.Medium,
+            fontSize = 12.sp
+        )
+        ArrowButton(
+            onDownVoteAction,
+            R.drawable.ic_baseline_arrow_downward_24
+        )
+    }
 }
 
 @Composable
 fun ArrowButton(onClickAction: () -> Unit, arrowResourceId: Int) {
-    //TODO add your code here
+    IconButton(
+        onClick = onClickAction, modifier =
+        Modifier.size(30.dp)
+    ) {
+        Icon(
+            imageVector = ImageVector.vectorResource(arrowResourceId),
+            contentDescription = stringResource(id = R.string.upvote),
+            modifier = Modifier.size(20.dp),
+            tint = Color.Gray
+        )
+    }
 }
 
 @Composable
