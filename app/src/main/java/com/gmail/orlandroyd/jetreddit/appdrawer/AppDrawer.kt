@@ -16,22 +16,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.gmail.orlandroyd.jetreddit.R
+import com.gmail.orlandroyd.jetreddit.routing.JetRedditRouter
+import com.gmail.orlandroyd.jetreddit.routing.Screen
 import com.gmail.orlandroyd.jetreddit.theme.JetRedditThemeSettings
 
 /**
  * Represents root composable for the app drawer used in screens
  */
 @Composable
-fun AppDrawer(
-    modifier: Modifier = Modifier,
-    closeDrawerAction: () -> Unit
-) {
+fun AppDrawer(closeDrawerAction: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -49,7 +47,6 @@ fun AppDrawer(
  * Represents app drawer header with the icon and the app name
  */
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
 private fun AppDrawerHeader() {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -72,16 +69,16 @@ private fun AppDrawerHeader() {
         )
 
         ProfileInfo()
-
-        Divider(
-            color = MaterialTheme.colors.onSurface.copy(alpha = .2f),
-            modifier = Modifier.padding(
-                start = 16.dp,
-                end = 16.dp,
-                top = 16.dp
-            )
-        )
     }
+
+    Divider(
+        color = MaterialTheme.colors.onSurface.copy(alpha = .2f),
+        modifier = Modifier.padding(
+            start = 16.dp,
+            end = 16.dp,
+            top = 16.dp
+        )
+    )
 }
 
 @Composable
@@ -91,7 +88,9 @@ fun ProfileInfo(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .padding(top = 16.dp)
     ) {
+
         val (karmaItem, divider, ageItem) = createRefs()
+
         val colors = MaterialTheme.colors
 
         ProfileInfoItem(
@@ -137,10 +136,10 @@ private fun ProfileInfoItem(
     val colors = MaterialTheme.colors
 
     ConstraintLayout(modifier = modifier) {
+
         val (iconRef, amountRef, titleRef) = createRefs()
 
-        val itemModifier =
-            Modifier // as it’s good practice to differentiate between parent and item modifiers.
+        val itemModifier = Modifier
 
         Icon(
             contentDescription = stringResource(id = textResourceId),
@@ -194,14 +193,17 @@ private fun AppDrawerBody(closeDrawerAction: () -> Unit) {
             icon = Icons.Filled.AccountBox,
             label = stringResource(R.string.my_profile),
             onClickAction = {
-                closeDrawerAction
+                JetRedditRouter.navigateTo(Screen.MyProfile)
+                closeDrawerAction()
             }
         )
+
         ScreenNavigationButton(
             icon = Icons.Filled.Home,
-            label = stringResource(R.string.home),
+            label = stringResource(R.string.saved),
             onClickAction = {
-                closeDrawerAction
+                JetRedditRouter.navigateTo(Screen.Subscriptions)
+                closeDrawerAction()
             }
         )
     }
@@ -272,14 +274,14 @@ private fun AppDrawerFooter(modifier: Modifier = Modifier) {
         val colors = MaterialTheme.colors
         val (settingsImage, settingsText, darkModeButton) = createRefs()
 
-        Icon(
+        Image(
             modifier = modifier.constrainAs(settingsImage) {
                 start.linkTo(parent.start)
                 bottom.linkTo(parent.bottom)
             },
             imageVector = Icons.Default.Settings,
             contentDescription = stringResource(id = R.string.settings),
-            tint = colors.primaryVariant
+            colorFilter = ColorFilter.tint(colors.primaryVariant)
         )
 
         Text(
@@ -295,7 +297,7 @@ private fun AppDrawerFooter(modifier: Modifier = Modifier) {
                 }
         )
 
-        Icon(
+        Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_moon),
             contentDescription = stringResource(id = R.string.change_theme),
             modifier = modifier
@@ -304,22 +306,11 @@ private fun AppDrawerFooter(modifier: Modifier = Modifier) {
                     end.linkTo(parent.end)
                     bottom.linkTo(settingsImage.bottom)
                 },
-            tint = colors.primaryVariant
+            colorFilter = ColorFilter.tint(colors.primaryVariant)
         )
     }
 }
 
 private fun changeTheme() {
     JetRedditThemeSettings.isInDarkTheme.value = JetRedditThemeSettings.isInDarkTheme.value.not()
-}
-
-@Preview
-@Composable
-private fun ProfileInfoItemPreview() {
-    ProfileInfoItem(
-        Icons.Filled.ShoppingCart,
-        R.string.default_reddit_age_amount,
-        R.string.reddit_age,
-        Modifier
-    )
 }

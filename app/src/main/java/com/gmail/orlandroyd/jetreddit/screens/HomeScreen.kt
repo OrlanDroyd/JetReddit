@@ -20,11 +20,9 @@ import com.gmail.orlandroyd.jetreddit.viewmodel.MainViewModel
 @Composable
 fun HomeScreen(viewModel: MainViewModel) {
     val posts: List<PostModel> by viewModel.allPosts.observeAsState(listOf())
+
     LazyColumn(
-        modifier = Modifier
-            .background(
-                color = MaterialTheme.colors.secondary
-            )
+        modifier = Modifier.background(color = MaterialTheme.colors.secondary)
     ) {
         items(posts) {
             if (it.type == PostType.TEXT) {
@@ -32,7 +30,7 @@ fun HomeScreen(viewModel: MainViewModel) {
             } else {
                 ImagePost(it)
             }
+            Spacer(modifier = Modifier.height(6.dp))
         }
-        Spacer(modifier = Modifier.height(6.dp))
     }
 }

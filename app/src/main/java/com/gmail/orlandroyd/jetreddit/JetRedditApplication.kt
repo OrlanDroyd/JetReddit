@@ -1,19 +1,13 @@
 package com.gmail.orlandroyd.jetreddit
 
 import android.app.Application
+import android.content.Context
 import com.gmail.orlandroyd.jetreddit.dependencyinjection.DependencyInjector
+import kotlinx.coroutines.DelicateCoroutinesApi
 
-class JetRedditApplication : Application() {
+@DelicateCoroutinesApi
+class JetRedditApplication(context : Context) : Application() {
 
-    lateinit var dependencyInjector: DependencyInjector
-
-    override fun onCreate() {
-        super.onCreate()
-        initDependencyInjector()
-    }
-
-    private fun initDependencyInjector() {
-        dependencyInjector = DependencyInjector(this)
-    }
+    val dependencyInjector: DependencyInjector = DependencyInjector(context)
 
 }

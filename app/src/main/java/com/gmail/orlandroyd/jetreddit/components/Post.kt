@@ -81,7 +81,6 @@ fun Header(post: PostModel) {
                 color = Color.Gray
             )
         }
-
         MoreActionsMenu()
     }
 
@@ -207,29 +206,20 @@ fun VotingAction(
     onDownVoteAction: () -> Unit
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        ArrowButton(
-            onUpVoteAction,
-            R.drawable.ic_baseline_arrow_upward_24
-        )
+        ArrowButton(onUpVoteAction, R.drawable.ic_baseline_arrow_upward_24)
         Text(
             text = text,
             color = Color.Gray,
             fontWeight = FontWeight.Medium,
             fontSize = 12.sp
         )
-        ArrowButton(
-            onDownVoteAction,
-            R.drawable.ic_baseline_arrow_downward_24
-        )
+        ArrowButton(onDownVoteAction, R.drawable.ic_baseline_arrow_downward_24)
     }
 }
 
 @Composable
 fun ArrowButton(onClickAction: () -> Unit, arrowResourceId: Int) {
-    IconButton(
-        onClick = onClickAction, modifier =
-        Modifier.size(30.dp)
-    ) {
+    IconButton(onClick = onClickAction, modifier = Modifier.size(30.dp)) {
         Icon(
             imageVector = ImageVector.vectorResource(arrowResourceId),
             contentDescription = stringResource(id = R.string.upvote),
@@ -257,6 +247,16 @@ fun PostAction(
             Text(text = text, fontWeight = FontWeight.Medium, color = Color.Gray, fontSize = 12.sp)
         }
     }
+}
+
+@Preview
+@Composable
+fun PostActionPreview() {
+    PostAction(
+        vectorResourceId = R.drawable.ic_baseline_emoji_events_24,
+        text = stringResource(R.string.award),
+        onClickAction = {}
+    )
 }
 
 @Preview

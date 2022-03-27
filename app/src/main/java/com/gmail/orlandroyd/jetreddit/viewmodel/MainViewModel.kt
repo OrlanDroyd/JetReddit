@@ -5,7 +5,7 @@ import com.gmail.orlandroyd.jetreddit.data.repository.Repository
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-  val allPosts by lazy { repository.getAllPosts() }
+    val allPosts by lazy { repository.getAllPosts() }
 
-  val myPosts by lazy { repository.getAllOwnedPosts() }
+    val myPosts by lazy { repository.getAllOwnedPosts() }
 }
