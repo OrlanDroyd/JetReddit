@@ -16,10 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.gmail.orlandroyd.jetreddit.appdrawer.AppDrawer
 import com.gmail.orlandroyd.jetreddit.routing.JetRedditRouter
 import com.gmail.orlandroyd.jetreddit.routing.Screen
-import com.gmail.orlandroyd.jetreddit.screens.AddScreen
-import com.gmail.orlandroyd.jetreddit.screens.HomeScreen
-import com.gmail.orlandroyd.jetreddit.screens.MyProfileScreen
-import com.gmail.orlandroyd.jetreddit.screens.SubredditsScreen
+import com.gmail.orlandroyd.jetreddit.screens.*
 import com.gmail.orlandroyd.jetreddit.theme.JetRedditTheme
 import com.gmail.orlandroyd.jetreddit.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -66,7 +63,7 @@ fun getTopBar(
     scaffoldState: ScaffoldState,
     coroutineScope: CoroutineScope
 ): @Composable (() -> Unit) {
-    if (screenState == Screen.MyProfile) {
+    if (screenState == Screen.MyProfile || screenState == Screen.ChooseCommunity) {
         return {}
     } else {
         return { TopAppBar(scaffoldState = scaffoldState, coroutineScope = coroutineScope) }
@@ -116,8 +113,9 @@ private fun MainScreenContainer(
         when (screenState.value) {
             Screen.Home -> HomeScreen(viewModel)
             Screen.Subscriptions -> SubredditsScreen()
-            Screen.NewPost -> AddScreen()
+            Screen.NewPost -> AddScreen(viewModel)
             Screen.MyProfile -> MyProfileScreen(viewModel)
+            Screen.ChooseCommunity -> ChooseCommunityScreen(viewModel)
         }
     }
 }

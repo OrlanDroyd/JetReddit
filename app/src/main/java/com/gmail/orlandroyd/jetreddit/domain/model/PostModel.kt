@@ -27,5 +27,17 @@ data class PostModel(
             "4h",
             R.drawable.compose_course
         )
+
+        val EMPTY = PostModel(
+            "raywenderlich",
+            "raywenderlich.com",
+            "",
+            "",
+            "0",
+            "0",
+            PostType.TEXT,
+            "0h",
+            R.drawable.compose_course
+        )
     }
 }
