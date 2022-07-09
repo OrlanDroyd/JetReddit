@@ -60,11 +60,19 @@ fun Post(post: PostModel, content: @Composable () -> Unit = {}) {
 }
 
 @Composable
-fun Header(post: PostModel) {
-    Row(modifier = Modifier.padding(start = 16.dp)) {
+fun Header(
+    post: PostModel,
+    onJoinButtonClick: (Boolean) -> Unit = {},
+) {
+    Row(
+        modifier = Modifier.padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
-            ImageBitmap.imageResource(id = R.drawable.subreddit_placeholder),
-            contentDescription = stringResource(id = R.string.subreddits),
+            ImageBitmap.imageResource(id =
+            R.drawable.subreddit_placeholder),
+            contentDescription = stringResource(id =
+            R.string.subreddits),
             Modifier
                 .size(40.dp)
                 .clip(CircleShape)
@@ -72,18 +80,26 @@ fun Header(post: PostModel) {
         Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = stringResource(R.string.subreddit_header, post.subreddit),
+                text = stringResource(
+                    R.string.subreddit_header,
+                    post.subreddit
+                ),
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colors.primaryVariant
             )
             Text(
-                text = stringResource(R.string.post_header, post.username, post.postedTime),
+                text = stringResource(
+                    R.string.post_header,
+                    post.username,
+                    post.postedTime
+                ),
                 color = Color.Gray
             )
         }
+        Spacer(modifier = Modifier.width(4.dp))
+        JoinButton(onJoinButtonClick)
         MoreActionsMenu()
     }
-
     Title(text = post.title)
 }
 
@@ -117,7 +133,7 @@ fun CustomDropdownMenuItem(
     @DrawableRes vectorResourceId: Int,
     color: Color = Color.Black,
     text: String,
-    onClickAction: () -> Unit = {}
+    onClickAction: () -> Unit = {},
 ) {
     DropdownMenuItem(onClick = onClickAction) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -203,7 +219,7 @@ fun PostActions(post: PostModel) {
 fun VotingAction(
     text: String,
     onUpVoteAction: () -> Unit,
-    onDownVoteAction: () -> Unit
+    onDownVoteAction: () -> Unit,
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         ArrowButton(onUpVoteAction, R.drawable.ic_baseline_arrow_upward_24)
@@ -233,7 +249,7 @@ fun ArrowButton(onClickAction: () -> Unit, arrowResourceId: Int) {
 fun PostAction(
     @DrawableRes vectorResourceId: Int,
     text: String,
-    onClickAction: () -> Unit
+    onClickAction: () -> Unit,
 ) {
     Box(modifier = Modifier.clickable(onClick = onClickAction)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
