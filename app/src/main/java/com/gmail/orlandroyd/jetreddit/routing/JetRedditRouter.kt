@@ -2,9 +2,7 @@ package com.gmail.orlandroyd.jetreddit.routing
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.res.stringResource
 import com.gmail.orlandroyd.jetreddit.R
-
 
 /**
  * Class defining the screens we have in the app.

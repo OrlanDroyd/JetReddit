@@ -11,13 +11,13 @@ import com.gmail.orlandroyd.jetreddit.data.repository.Repository
 class MainViewModelFactory(
     owner: SavedStateRegistryOwner,
     private val repository: Repository,
-    defaultArgs: Bundle? = null
+    defaultArgs: Bundle? = null,
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
     override fun <T : ViewModel?> create(
         key: String,
         modelClass: Class<T>,
-        handle: SavedStateHandle
+        handle: SavedStateHandle,
     ): T {
         return MainViewModel(repository) as T
     }
